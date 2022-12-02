@@ -69,13 +69,28 @@ static const char *lockcmd[] = { "loginctl", "lock-session", NULL };
 static const char *suspendcmd[] = { "systemctl", "suspend", "-i", NULL };
 static const char *hibernatecmd[] = { "systemctl", "hibernate", "-i", NULL };
 
+static const char *lightupcmd[] = { "light", "-A", "5", NULL };
+static const char *lightdowncmd[] = { "light", "-U", "5", NULL };
+
+static const char *audiomutecmd[] = { "pamixer", "-t", NULL };
+static const char *volumeupcmd[] = { "pamixer", "-i", "5", NULL };
+static const char *volumedowncmd[] = { "pamixer", "-d", "5", NULL };
+
+#include <X11/XF86keysym.h>
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ 0, XF86XK_MonBrightnessUp,               spawn,          {.v = lightupcmd } },
+	{ 0, XF86XK_MonBrightnessDown,             spawn,          {.v = lightdowncmd } },
+	{ 0, XF86XK_AudioMute,                     spawn,          {.v = audiomutecmd } },
+	{ 0, XF86XK_AudioRaiseVolume,              spawn,          {.v = volumeupcmd } },
+	{ 0, XF86XK_AudioLowerVolume,              spawn,          {.v = volumedowncmd } },
+
 	{ MODKEY,                       XK_z,      spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = suspendcmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_z,      spawn,          {.v = hibernatecmd } },
+
+	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
