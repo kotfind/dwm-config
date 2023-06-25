@@ -75,6 +75,10 @@ static const char *audiomutecmd[] = { "pamixer", "-t", NULL };
 static const char *volumeupcmd[] = { "pamixer", "-i", "5", NULL };
 static const char *volumedowncmd[] = { "pamixer", "-d", "5", NULL };
 
+static const char *scrotcmd[] = { "scrot", NULL };
+static const char *scrotareacmd[] = { "scrot", "-f", "-s", NULL };
+static const char *scrotwindowcmd[] = { "scrot", "-f", "-u", NULL };
+
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -83,6 +87,10 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioMute,                     spawn,          {.v = audiomutecmd } },
 	{ 0, XF86XK_AudioRaiseVolume,              spawn,          {.v = volumeupcmd } },
 	{ 0, XF86XK_AudioLowerVolume,              spawn,          {.v = volumedowncmd } },
+
+	{ 0,                            XK_Print,  spawn,          {.v = scrotcmd } },
+	{ ShiftMask,                    XK_Print,  spawn,          {.v = scrotareacmd } },
+	{ ControlMask,                  XK_Print,  spawn,          {.v = scrotwindowcmd } },
 
 	{ MODKEY,                       XK_z,      spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = suspendcmd } },
