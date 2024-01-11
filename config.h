@@ -75,9 +75,11 @@ static const char *audiomutecmd[] = { "pamixer", "-t", NULL };
 static const char *volumeupcmd[] = { "pamixer", "-i", "5", NULL };
 static const char *volumedowncmd[] = { "pamixer", "-d", "5", NULL };
 
-static const char *scrotcmd[] = { "scrot", NULL };
-static const char *scrotareacmd[] = { "scrot", "-f", "-s", NULL };
-static const char *scrotwindowcmd[] = { "scrot", "-f", "-u", NULL };
+
+#define SCROT_FILE_NAME "/tmp/TmpScreenshots/%s.png"
+static const char *scrotcmd[] = { "scrot", SCROT_FILE_NAME, NULL };
+static const char *scrotareacmd[] = { "scrot", "-f", "-s", SCROT_FILE_NAME, NULL };
+static const char *scrotwindowcmd[] = { "scrot", "-f", "-u", SCROT_FILE_NAME, NULL };
 
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
