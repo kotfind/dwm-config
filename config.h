@@ -71,10 +71,13 @@ static const char *hibernatecmd[] = { "systemctl", "hibernate", "-i", NULL };
 static const char *lightupcmd[] = { "light", "-A", "5", NULL };
 static const char *lightdowncmd[] = { "light", "-U", "5", NULL };
 
-static const char *audiomutecmd[] = { "pamixer", "-t", NULL };
-static const char *volumeupcmd[] = { "pamixer", "-i", "5", NULL };
-static const char *volumedowncmd[] = { "pamixer", "-d", "5", NULL };
+static const char *audiomutecmd[]  = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *volumeupcmd[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *volumedowncmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 
+static const char *playerplaypausecmd[] = { "playerctl", "play-pause", NULL };
+static const char *playernextcmd[]      = { "playerctl", "next", NULL };
+static const char *playerprevcmd[]      = { "playerctl", "previous", NULL };
 
 #define SCROT_FILE_NAME "/tmp/TmpScreenshots/%s.png"
 static const char *scrotcmd[] = { "scrot", SCROT_FILE_NAME, NULL };
@@ -86,9 +89,14 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ 0, XF86XK_MonBrightnessUp,               spawn,          {.v = lightupcmd } },
 	{ 0, XF86XK_MonBrightnessDown,             spawn,          {.v = lightdowncmd } },
+
 	{ 0, XF86XK_AudioMute,                     spawn,          {.v = audiomutecmd } },
 	{ 0, XF86XK_AudioRaiseVolume,              spawn,          {.v = volumeupcmd } },
 	{ 0, XF86XK_AudioLowerVolume,              spawn,          {.v = volumedowncmd } },
+
+	{ 0, XF86XK_AudioPlay,                     spawn,          {.v = playerplaypausecmd } },
+	{ 0, XF86XK_AudioNext,                     spawn,          {.v = playernextcmd } },
+	{ 0, XF86XK_AudioPrev,                     spawn,          {.v = playerprevcmd } },
 
 	{ 0,                            XK_Print,  spawn,          {.v = scrotcmd } },
 	{ ShiftMask,                    XK_Print,  spawn,          {.v = scrotareacmd } },
