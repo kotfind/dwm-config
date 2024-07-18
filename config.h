@@ -84,28 +84,42 @@ static const char *scrotcmd[] = { "scrot", SCROT_FILE_NAME, NULL };
 static const char *scrotareacmd[] = { "scrot", "-f", "-s", SCROT_FILE_NAME, NULL };
 static const char *scrotwindowcmd[] = { "scrot", "-f", "-u", SCROT_FILE_NAME, NULL };
 
+static const char *firefoxcmd[] = { "firefox", "--new-window", NULL};
+static const char *privfirefoxcmd[] = { "firefox", "--private-window", NULL};
+
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+
+    /* Screen Light */
 	{ 0, XF86XK_MonBrightnessUp,               spawn,          {.v = lightupcmd } },
 	{ 0, XF86XK_MonBrightnessDown,             spawn,          {.v = lightdowncmd } },
 
+    /* Volume */
 	{ 0, XF86XK_AudioMute,                     spawn,          {.v = audiomutecmd } },
 	{ 0, XF86XK_AudioRaiseVolume,              spawn,          {.v = volumeupcmd } },
 	{ 0, XF86XK_AudioLowerVolume,              spawn,          {.v = volumedowncmd } },
 
+    /* Audio: Play, Next, Prev */
 	{ 0, XF86XK_AudioPlay,                     spawn,          {.v = playerplaypausecmd } },
 	{ 0, XF86XK_AudioNext,                     spawn,          {.v = playernextcmd } },
 	{ 0, XF86XK_AudioPrev,                     spawn,          {.v = playerprevcmd } },
 
+    /* Screenshots (with Scrot) */
 	{ 0,                            XK_Print,  spawn,          {.v = scrotcmd } },
 	{ ShiftMask,                    XK_Print,  spawn,          {.v = scrotareacmd } },
 	{ ControlMask,                  XK_Print,  spawn,          {.v = scrotwindowcmd } },
 
+    /* Lock/ suspend/ hibernate */
 	{ MODKEY,                       XK_z,      spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = suspendcmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_z,      spawn,          {.v = hibernatecmd } },
 
+    /* Firefox */
+    { MODKEY,                       XK_f,      spawn,          {.v = firefoxcmd }},
+    { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = privfirefoxcmd }},
+
+    /* DWM controls */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
