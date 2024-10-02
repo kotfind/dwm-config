@@ -79,7 +79,7 @@ static const char *playerplaypausecmd[] = { "playerctl", "play-pause", NULL };
 static const char *playernextcmd[]      = { "playerctl", "next", NULL };
 static const char *playerprevcmd[]      = { "playerctl", "previous", NULL };
 
-#define SCROT_FILE_NAME "/tmp/TmpScreenshots/%s.png"
+#define SCROT_FILE_NAME "/tmp/screenshots/%s.png"
 static const char *scrotcmd[] = { "scrot", SCROT_FILE_NAME, NULL };
 static const char *scrotareacmd[] = { "scrot", "-f", "-s", SCROT_FILE_NAME, NULL };
 static const char *scrotwindowcmd[] = { "scrot", "-f", "-u", SCROT_FILE_NAME, NULL };
